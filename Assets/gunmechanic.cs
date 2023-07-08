@@ -21,9 +21,9 @@ public class gunmechanic : MonoBehaviour
         Vector2 direction = mousePosition - transform.parent.position;
         float angle = Vector2.SignedAngle(Vector2.right, direction);
         Vector3 targetRotation = new Vector3(0, 0, angle);
-        /*xspeed = (transform.position.x - lastPosition) / Time.deltaTime;
+        xspeed = (transform.position.x - lastPosition) / Time.deltaTime;
         lastPosition = transform.position.x;
-        if(xspeed<0){
+        /*if(xspeed<0){
             if(rotate){
                 transform.position = new Vector3(-0.75f,0,0) + transform.parent.position;
                 rotate = false;
