@@ -14,6 +14,6 @@ public class bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.GetComponent<Rigidbody2D>().velocity = (transform.GetComponent<Rigidbody2D>().velocity).normalized * 20f;
     }
 }
