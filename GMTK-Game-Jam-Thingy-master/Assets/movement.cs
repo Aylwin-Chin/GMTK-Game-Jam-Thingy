@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class movement : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class movement : MonoBehaviour
     public GameObject scoremanager;
     private bool godMode;
     private float initialMoveSpeed;
+    [HideInInspector]public float godmodetimer;
 
 
     // Start is called before the first frame update
@@ -38,7 +40,17 @@ public class movement : MonoBehaviour
             health = 10;
         }
         Debug.Log("Health: " + health);
+        Vector3 minScreenBounds = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
+	    Vector3 maxScreenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
 
+		transform.position = new Vector3(Mathf.Clamp(transform.position.x, minScreenBounds.x + 1, maxScreenBounds.x - 1),Mathf.Clamp(transform.position.y, minScreenBounds.y + 1, maxScreenBounds.y - 1), transform.position.z);
+        
+        godmodetimer-=Time.deltaTime;
+        if(godmodetimer<=0){
+            godmodetimer=0;
+            godMode=false;
+            moveSpeed=initialMoveSpeed;
+        }
     }
     public void ApplyDamage(float dmg){
         if(!godMode){
@@ -47,18 +59,18 @@ public class movement : MonoBehaviour
         }
         scoremanager.SendMessage("IncrementScore",((15f-health)*10f)*10f);
         if(health<=0){
-            Destroy (gameObject);
+            SceneManager.LoadScene(2);
     }
     }
     public void GodMode(){
         if(!godMode){
             godMode = true;
+            godmodetimer=1.5f;
             moveSpeed = initialMoveSpeed * 1.5f;
-            Invoke("ClearGodMode", 5f);
         }
-    }
-    private void ClearGodMode(){
-        godMode = false;
-        moveSpeed = initialMoveSpeed;
+        else{
+            godmodetimer=1.5f;
+        }
+        
     }
 }
