@@ -7,6 +7,7 @@ public class enemybehaviour : MonoBehaviour
     private GameObject Player;
     public float minDistance = 3f;
     public float moveSpeed = 5f;
+    public int health = 5;
     CharacterController _controller;
     Transform target;
     // Start is called before the first frame update
@@ -22,6 +23,7 @@ public class enemybehaviour : MonoBehaviour
         Vector2 targetPos = Player.transform.position;
         targetPos += ((Vector2)transform.position - (Vector2)Player.transform.position).normalized * minDistance;
         transform.position = Vector2.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+        //gameObject.GetComponent<Rigidbody2D>().velocity = ((targetPos-(Vector2)transform.position).normalized*moveSpeed);
         /*Vector3 direction = target.position - transform.position;
 
         direction = direction.normalized;
@@ -29,5 +31,14 @@ public class enemybehaviour : MonoBehaviour
         Vector3 velocity = direction * moveSpeed;
  
         transform.GetComponent<Rigidbody2D>().velocity = (velocity * Time.deltaTime);*/
+    }  
+    
+    public void ApplyDamage(int damage){
+        health -= damage;
+        Debug.Log("Damage");
+        if(health<=0){
+            Destroy (gameObject);
+        }
     }
+    
 }
