@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: c7b6c6ce9c6b7c64ca6c1ae6336f7e17
-=======
-guid: 4c2d2d85d1f8e2648b668f5ded4ac37f
->>>>>>> 3fc54da (with enemies/spawner (buggy ah spawner))
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
