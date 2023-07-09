@@ -5,10 +5,13 @@ using UnityEngine;
 public class movement : MonoBehaviour
 {
     
-    public float moveSpeed = 7;
+    public float moveSpeed = 9;
     public float playerX;
     public float playerY;
     public float minDistance = 0.3f;
+    public float health = 10f;
+    public GameObject scoremanager;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +27,22 @@ public class movement : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, mousePosition, moveSpeed * Time.deltaTime);
         playerX = transform.position.x;
         playerY = transform.position.y;
+        transform.eulerAngles = new Vector3 (transform.eulerAngles.x, transform.eulerAngles.y, 0);
+        if (health<10){
+            health += 0.5f * Time.deltaTime;
+        }
+        if (health>10){
+            health = 10;
+        }
+        Debug.Log("Health: " + health);
 
+    }
+    public void ApplyDamage(float dmg){
+        health -= dmg;
+        Debug.Log("Damage");
+        scoremanager.SendMessage("IncrementScore",((15f-health)*10f)*10f);
+        if(health<=0){
+            Destroy (gameObject);
+    }
     }
 }
