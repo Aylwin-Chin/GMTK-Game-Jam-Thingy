@@ -10,6 +10,7 @@ public class enemybehaviour : MonoBehaviour
     public int health = 5;
     CharacterController _controller;
     Transform target;
+    public GameObject powerup;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,9 @@ public class enemybehaviour : MonoBehaviour
         health -= damage;
         Debug.Log("Damage");
         if(health<=0){
+            if(Random.Range(0,10)==1){
+                Instantiate (powerup, transform.position, Quaternion.identity);
+            }
             Destroy (gameObject);
         }
     }

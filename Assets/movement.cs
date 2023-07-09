@@ -11,12 +11,15 @@ public class movement : MonoBehaviour
     public float minDistance = 0.3f;
     public float health = 10f;
     public GameObject scoremanager;
+    private bool godMode;
+    private float initialMoveSpeed;
 
 
     // Start is called before the first frame update
     void Start()
     {
         Vector3 mousePosition = Input.mousePosition;
+        initialMoveSpeed=moveSpeed;
     }
 
     // Update is called once per frame
@@ -38,11 +41,24 @@ public class movement : MonoBehaviour
 
     }
     public void ApplyDamage(float dmg){
-        health -= dmg;
-        Debug.Log("Damage");
+        if(!godMode){
+            health -= dmg;
+            Debug.Log("Damage");
+        }
         scoremanager.SendMessage("IncrementScore",((15f-health)*10f)*10f);
         if(health<=0){
             Destroy (gameObject);
     }
+    }
+    public void GodMode(){
+        if(!godMode){
+            godMode = true;
+            moveSpeed = initialMoveSpeed * 1.5f;
+            Invoke("ClearGodMode", 5f);
+        }
+    }
+    private void ClearGodMode(){
+        godMode = false;
+        moveSpeed = initialMoveSpeed;
     }
 }

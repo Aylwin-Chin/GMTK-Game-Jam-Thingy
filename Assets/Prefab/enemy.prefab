@@ -103,6 +103,7 @@ MonoBehaviour:
   minDistance: 1
   moveSpeed: 5
   health: 1
+  powerup: {fileID: 5699687401727390382, guid: 75ac8b20cab1a054b905fb20c6e68815, type: 3}
 --- !u!61 &639029636076006208
 BoxCollider2D:
   m_ObjectHideFlags: 0
